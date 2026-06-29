@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LocalKYC.Mobile/LocalKYC.Mobile.csproj" />
+    <Project Path="src/LocalKYC.Workflow/LocalKYC.Workflow.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LocalKYC.Workflow.Tests/LocalKYC.Workflow.Tests.csproj" />
+  </Folder>
+</Solution>

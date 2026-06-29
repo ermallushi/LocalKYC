@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalKYC.Mobile.MainPage"
+             Title="LocalKYC Activation">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+            <Label Text="New Subscriber Activation"
+                   SemanticProperties.HeadingLevel="Level1"
+                   FontSize="26"
+                   FontAttributes="Bold" />
+
+            <Label Text="IDSwift endpoint" />
+            <Entry x:Name="IdSwiftEndpointEntry"
+                   Text="http://localhost:8086/api/v1/kyc/sessions"
+                   Keyboard="Url" />
+
+            <Label Text="Full name" />
+            <Entry x:Name="FullNameEntry"
+                   Placeholder="Subscriber full name" />
+
+            <Label Text="National ID" />
+            <Entry x:Name="NationalIdEntry"
+                   Placeholder="National identifier" />
+
+            <Label Text="MSISDN" />
+            <Entry x:Name="MsisdnEntry"
+                   Placeholder="+3556XXXXXXXX"
+                   Keyboard="Telephone" />
+
+            <Button x:Name="StartButton"
+                    Text="Start KYC Step"
+                    Clicked="OnStartKycClicked" />
+
+            <Label x:Name="ResultLabel"
+                   Text="Status will appear here"
+                   FontAttributes="Italic" />
+
+            <Label Text="Process steps" FontAttributes="Bold" />
+            <CollectionView x:Name="StepsCollectionView"
+                            HeightRequest="240">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Padding="0,4" Spacing="2">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Label Text="{Binding State}" />
+                            <Label Text="{Binding Notes}" LineBreakMode="WordWrap" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
