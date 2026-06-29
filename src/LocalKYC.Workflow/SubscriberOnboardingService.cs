@@ -19,9 +19,7 @@ public sealed class SubscriberOnboardingService
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 steps.Add(new OnboardingStep("KYC with IDSwift", OnboardingStepState.Failed, "IDSwift did not return a KYC session id."));
-                steps.Add(new OnboardingStep("CRM Activation", OnboardingStepState.Pending, "Run this after KYC is completed."));
-                steps.Add(new OnboardingStep("Digital Signature", OnboardingStepState.Pending, "Collect customer signature after CRM activation."));
-                steps.Add(new OnboardingStep("SIM Provisioning", OnboardingStepState.Pending, "Finalize profile provisioning on HLR/HSS."));
+                AddPendingPostKycSteps(steps);
                 return new OnboardingPlan(null, steps);
             }
 
@@ -35,11 +33,16 @@ public sealed class SubscriberOnboardingService
         catch (Exception ex)
         {
             steps.Add(new OnboardingStep("KYC with IDSwift", OnboardingStepState.Failed, ex.Message));
-            steps.Add(new OnboardingStep("CRM Activation", OnboardingStepState.Pending, "Run this after KYC is completed."));
-            steps.Add(new OnboardingStep("Digital Signature", OnboardingStepState.Pending, "Collect customer signature after CRM activation."));
-            steps.Add(new OnboardingStep("SIM Provisioning", OnboardingStepState.Pending, "Finalize profile provisioning on HLR/HSS."));
+            AddPendingPostKycSteps(steps);
 
             return new OnboardingPlan(null, steps);
         }
+    }
+
+    private static void AddPendingPostKycSteps(List<OnboardingStep> steps)
+    {
+        steps.Add(new OnboardingStep("CRM Activation", OnboardingStepState.Pending, "Run this after KYC is completed."));
+        steps.Add(new OnboardingStep("Digital Signature", OnboardingStepState.Pending, "Collect customer signature after CRM activation."));
+        steps.Add(new OnboardingStep("SIM Provisioning", OnboardingStepState.Pending, "Finalize profile provisioning on HLR/HSS."));
     }
 }
